@@ -47,4 +47,5 @@ document.getElementById('btn-cashout').addEventListener('click', function (event
 function resetValues(num1, num2){
     document.getElementById(num1).value = "";
     document.getElementById(num2).value = "";
+    
 }
