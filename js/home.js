@@ -2,50 +2,46 @@
 
 document.getElementById('btn-add-money').addEventListener('click', function (event) {
     event.preventDefault();
-
-    let balance = parseFloat(document.getElementById('c-balance').innerText);
-
-    const amount = parseFloat(document.getElementById('in-amount').value);
-
-    const pass = document.getElementById('in-pass').value;
-
-    if (amount !== "" && pass === '17100' && !isNaN(amount)) {
-        balance = balance + amount;
-        // Update the current balance
-        document.getElementById('c-balance').innerText = balance;
-        resetValues('in-amount','in-pass');
-    } else {
-        alert('Invalid Amount or Pin');
-        resetValues('in-amount','in-pass');
-    }
-
-
+    handleTransaction('c-balance', 'in-amount', 'in-pass', 1);
 })
 
 document.getElementById('btn-cashout').addEventListener('click', function (event) {
     event.preventDefault();
-
-    let balance = parseFloat(document.getElementById('c-balance').innerText);
-
-    const amount = parseFloat(document.getElementById('in-cashout-amount').value);
-
-    const pass = document.getElementById('in-cashout-pass').value;
-
-    if (amount !== "" && pass === '17100' && !isNaN(amount)) {
-        balance = balance - amount;
-        // Update the current balance
-        document.getElementById('c-balance').innerText = balance;
-        resetValues('in-cashout-amount', 'in-cashout-pass');
-    } else {
-        alert('Invalid Amount or Pin');
-        resetValues('in-cashout-amount', 'in-cashout-pass');
-    }
-
-
+    handleTransaction('c-balance', 'in-cashout-amount', 'in-cashout-pass', -1);
 })
 
-function resetValues(num1, num2){
-    document.getElementById(num1).value = "";
-    document.getElementById(num2).value = "";
-    
+
+
+
+
+// DRY method Utilized.
+
+function handleTransaction(balanceId, amountId, passId, type) {
+
+    let balance = parseFloat(document.getElementById(balanceId).innerText);
+    const amount = parseFloat(document.getElementById(amountId).value);
+    const pass = document.getElementById(passId).value;
+
+    if(pass === '17100' && !isNaN(amount)){
+        balance += amount * type;
+        document.getElementById(balanceId).innerText = balance;
+        resetValues(amountId, passId);
+    }
+    else{
+        alert ('Invalid Amount or Pin Number');
+        resetValues(amountId, passId);
+    }
+
 }
+
+function resetValues(...ids) {
+    for (let id of ids) {
+        document.getElementById(id).value = "";
+    }
+
+}
+
+// Alternative approach:
+// function resetValues(...ids) {
+//     ids.forEach(id => document.getElementById(id).value = "");
+// }
