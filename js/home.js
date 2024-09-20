@@ -19,10 +19,10 @@ document.getElementById('btn-cashout').addEventListener('click', function (event
 function handleTransaction(balanceId, amountId, passId, type) {
 
     let balance = parseFloat(document.getElementById(balanceId).innerText);
-    const amount = parseFloat(document.getElementById(amountId).value);
-    const pass = document.getElementById(passId).value;
+    const amount = getInputValueById(amountId);
+    const pass = getInputValueById(passId);
 
-    if(pass === '17100' && !isNaN(amount)){
+    if(pass === 17100 && !isNaN(amount)){
         balance += amount * type;
         document.getElementById(balanceId).innerText = balance;
         resetValues(amountId, passId);
