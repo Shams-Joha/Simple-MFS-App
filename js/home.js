@@ -11,9 +11,6 @@ document.getElementById('btn-cashout').addEventListener('click', function (event
 })
 
 
-
-
-
 // DRY method Utilized.
 
 function handleTransaction(balanceId, amountId, passId, type) {
